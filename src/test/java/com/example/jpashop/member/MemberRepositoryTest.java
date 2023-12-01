@@ -1,6 +1,7 @@
 package com.example.jpashop.member;
 
 import com.example.jpashop.domain.Member;
+import com.example.jpashop.repository.MemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
