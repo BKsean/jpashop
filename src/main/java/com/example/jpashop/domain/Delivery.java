@@ -3,6 +3,7 @@ package com.example.jpashop.domain;
 import com.example.jpashop.common.Address;
 import com.example.jpashop.common.DeliveryStatus;
 import com.example.jpashop.domain.Order;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,7 @@ public class Delivery {
     private Long id;
 
     @OneToOne(mappedBy = "delivery",fetch = FetchType.LAZY)
+    @JsonIgnore
     private Order order;
 
     @Embedded

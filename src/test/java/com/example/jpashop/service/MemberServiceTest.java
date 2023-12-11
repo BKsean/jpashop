@@ -24,7 +24,7 @@ class MemberServiceTest {
     public void createMember() throws Exception{
 
         Member member = new Member();
-        member.setUsername("kim");
+        member.setName("kim");
 
         Long savedId = memberService.join(member); //insert쿼리가 없는건 @Transactional 이 Test에 있으면 기본적으로 Rollback이 기본이다
 
@@ -34,10 +34,10 @@ class MemberServiceTest {
     @Test
     public void duplicatedName() throws Exception {
         Member member1 = new Member();
-        member1.setUsername("kim");
+        member1.setName("kim");
 
         Member member2 = new Member();
-        member2.setUsername("kim");
+        member2.setName("kim");
         memberService.join(member1);
 
         Assertions.assertThrows(IllegalStateException.class, () -> {

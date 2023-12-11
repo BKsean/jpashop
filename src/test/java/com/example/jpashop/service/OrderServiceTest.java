@@ -30,7 +30,7 @@ class OrderServiceTest {
     @Test
     public void ItemOrder() throws Exception{
         Member member = new Member();
-        member.setUsername("회원1");
+        member.setName("회원1");
         member.setAddress(new Address("서울","강가","123-123"));
         em.persist(member);
         Item book = new Book();
@@ -53,7 +53,7 @@ class OrderServiceTest {
     @Test
     public void cancelOrder() throws Exception{
         Member member = new Member();
-        member.setUsername("회원1");
+        member.setName("회원1");
         member.setAddress(new Address("서울","강가","123-123"));
         em.persist(member);
         Item book = new Book();
@@ -75,7 +75,7 @@ class OrderServiceTest {
     @Test
     public void orderCountBiggerThenStock() throws Exception{
         Member member = new Member();
-        member.setUsername("회원1");
+        member.setName("회원1");
         member.setAddress(new Address("서울","강가","123-123"));
         em.persist(member);
         Item book = new Book();

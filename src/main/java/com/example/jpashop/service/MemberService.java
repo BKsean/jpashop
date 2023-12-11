@@ -35,7 +35,7 @@ public class MemberService {
     }
 
     private void validateDuplicateMember(Member member) {
-        List<Member> findMember = memberRepository.findByName(member.getUsername());
+        List<Member> findMember = memberRepository.findByName(member.getName());
         if(!findMember.isEmpty()){
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
@@ -56,5 +56,11 @@ public class MemberService {
     @Transactional(readOnly = true)
     public Member findById(Long id){
         return memberRepository.find(id);
+    }
+
+    public void update(Long id, String name) {
+        //merge가 아닌 변경감지 이용 영속성컨텍스트 이용
+        Member member = memberRepository.find(id);
+        member.setName(name);
     }
 }

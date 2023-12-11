@@ -26,7 +26,7 @@ public class OrderRepository {
     }
 
     public List<Order> findAll(OrderSearch orderSearch){
-        return em.createQuery("select 0 from Order o join o.member").getResultList();
+        return em.createQuery("select o from Order o join o.member").getResultList();
     }
 
     /**
@@ -48,7 +48,7 @@ public class OrderRepository {
         //회원 이름 검색
         if (StringUtils.hasText(orderSearch.getMemberName())) {
             Predicate name =
-                    cb.like(m.<String>get("username"), "%" + orderSearch.getMemberName() + "%");
+                    cb.like(m.<String>get("name"), "%" + orderSearch.getMemberName() + "%");
             criteria.add(name);
         }
 
@@ -56,4 +56,30 @@ public class OrderRepository {
         TypedQuery<Order> query = em.createQuery(cq).setMaxResults(1000);
         return query.getResultList();
     }
+
+    public List<Order> findAllWithMemberDelivery() {
+        return em.createQuery("select o from Order o" +
+                " join fetch o.member m" +
+                " join fetch o.delivery d", Order.class).getResultList();
+    }
+
+    public List<Order> findAllWithItem() {
+        return em.createQuery("select o from Order o" +
+                " join fetch o.member m" +
+                " join fetch o.delivery d" +
+                " join fetch o.orderItems oi" +
+                " join fetch oi.item i", Order.class).getResultList();
+    }
+
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+        return em.createQuery("select o from Order o" +
+                " join fetch o.member m" +
+                " join fetch o.delivery d", Order.class).setFirstResult(offset).setMaxResults(limit).getResultList();
+    }
+
+//    public List<OrderSimpleQueryDto> findOrderDtos() {
+//        em.createQuery("select o from Order o " +
+//                "join o.member m" +
+//                " join o.delivery d", OrderSimpleQueryDto.class).getResultList();
+//    }
 }
