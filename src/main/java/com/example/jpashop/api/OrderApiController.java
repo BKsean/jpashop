@@ -27,7 +27,7 @@ public class OrderApiController {
     
     @GetMapping("/api/v1/orders")
     public List<Order> ordersV1(){
-        List<Order> orders = orderRepository.findAllByCriteria(new OrderSearch());
+        List<Order> orders = orderRepository.findAllByString(new OrderSearch());
         for (Order order : orders) {
             order.getMember().getName();
             order.getDelivery().getAddress();
@@ -41,7 +41,7 @@ public class OrderApiController {
 
     @GetMapping("/api/v2/orders")
     public List<OrderDto> ordersV2(){
-        List<Order> orders = orderRepository.findAllByCriteria(new OrderSearch());
+        List<Order> orders = orderRepository.findAllByString(new OrderSearch());
         List<OrderDto> collect = orders.stream().map(order -> new OrderDto(order)).collect(Collectors.toList());
 
         return collect;
@@ -73,7 +73,7 @@ public class OrderApiController {
 
     @GetMapping("/api/v5/orders")
     public List<OrderQueryDto> orderV5(){
-        return orderQueryRepository.findAllByDto_optimization();  //1+N문제 발생 최적화하기
+        return orderQueryRepository.findAllByDto_optimization();  //1+N문제 발생 최적화하기 그냥 orderId값들을 뽑아내서 in절로 jpql생성
     }
 
     @GetMapping("/api/v6/orders")
